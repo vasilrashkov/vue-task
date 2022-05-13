@@ -26,19 +26,17 @@
       </div>
 
       <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
     </v-app-bar>
 
     <v-main>
-      {{offices}}
+      <template>
+        <v-data-table
+          :headers="headers"
+          :items="offices"
+          :items-per-page="5"
+          class="elevation-1"
+        ></v-data-table>
+      </template>
     </v-main>
   </v-app>
 </template>
@@ -53,12 +51,20 @@ export default {
 
   computed: { 
     offices () { 
-      return this.$store.state.offices.data.length; 
+      return this.$store.state.offices.data; 
     } 
   },
 
   data: () => ({
-    //
+    headers: [
+      { 
+        text: 'Име на офиса', 
+        align: 'start', 
+        sortable: true, 
+        value: 'name', 
+      },
+
+    ]
   }),
 };
 </script>
