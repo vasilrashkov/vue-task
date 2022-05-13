@@ -6,6 +6,8 @@ export const FETCHING_CITIES = "FETCHING_CITIES";
 export const FETCH_CITIES = "FETCH_CITIES";
 export const CITIES_RECEIVED = "CITIES_RECEIVED";
 
+export const SELECT_CITY = "SELECT_CITY";
+
 export const fetchingOffices = () => {
   return {
     type: FETCHING_OFFICESS,

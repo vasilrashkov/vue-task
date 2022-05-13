@@ -39,6 +39,7 @@
           :disabled="citiesLoading"
           item-text="name" 
           item-value="id"
+          v-on:change="selectCity"
           ></v-select>
 
         <template>
@@ -56,6 +57,7 @@
 </template>
 
 <script>
+import { SELECT_CITY } from './store/actions';
 
 export default {
   name: 'App',
@@ -63,12 +65,16 @@ export default {
   components: {
   },
 
+  methods: {
+    selectCity(id) {
+      this.$store.dispatch(SELECT_CITY, { selectedCity: id, api: this.$api });
+    }
+  },
   computed: { 
     oficessLoading() {
       return this.$store.state.offices.loading;
     },
     offices () { 
-      console.log(this.$store.state.offices.data.length > 0 ? this.$store.state.offices.data[4]: this.$store.state.offices.data)
       return this.$store.state.offices.data; 
     } ,
     cities() {

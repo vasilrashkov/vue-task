@@ -13,12 +13,12 @@ export default {
     return result;
   },
 
-  getOfficess: async () => {
+  getOfficess: async (cityID) => {
     const url = `${baseApiUrl}.getOffices.json`;
 
     const result = await axios.post(url, {
       countryCode: "BGR",
-      //   cityID: "2",
+      cityID,
     });
 
     return result;

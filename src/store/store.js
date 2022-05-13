@@ -5,6 +5,7 @@ import {
   FETCH_CITIES,
   FETCH_OFFICESS,
   OFFCIESS_RECEIVED,
+  SELECT_CITY,
 } from "./actions";
 
 const initialState = {
@@ -15,6 +16,9 @@ const initialState = {
   cities: {
     data: [],
     loading: false,
+  },
+  rootData: {
+    selectedCity: null,
   },
 };
 
@@ -55,8 +59,19 @@ export const store = {
         loading: false,
       };
     },
+    [SELECT_CITY]: (state, selectedCity) => {
+      state.rootData = {
+        ...state.rootData,
+        selectedCity,
+      };
+    },
   },
   actions: {
+    [SELECT_CITY]: ({ commit, dispatch }, data) => {
+      commit(SELECT_CITY, data.selectedCity);
+
+      dispatch(FETCH_OFFICESS, data.api);
+    },
     [FETCH_CITIES]: async ({ commit }, api) => {
       commit(FETCHING_CITIES);
 
@@ -66,12 +81,14 @@ export const store = {
 
       commit(CITIES_RECEIVED, cities);
     },
-    [FETCH_OFFICESS]: async ({ commit }, api) => {
+    [FETCH_OFFICESS]: async ({ commit, state }, api) => {
       commit(FETCHING_OFFICESS);
+
+      const selectedCity = state.rootData.selectedCity;
 
       const {
         data: { offices },
-      } = await api.getOfficess();
+      } = await api.getOfficess(selectedCity);
 
       commit(OFFCIESS_RECEIVED, offices);
     },
