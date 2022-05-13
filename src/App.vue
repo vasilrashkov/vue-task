@@ -29,15 +29,28 @@
     </v-app-bar>
 
     <v-main>
-      <template>
-        <v-data-table
-          :headers="headers"
-          :items="offices"
-          :items-per-page="10"
-          :loading="oficessLoading"
-          class="elevation-1"
-        ></v-data-table>
-      </template>
+      <v-container
+        class="spacing-playground pa-10"
+        fluid
+      >
+        <v-select 
+          :items="cities" 
+          label="Избери град"
+          :disabled="citiesLoading"
+          item-text="name" 
+          item-value="id"
+          ></v-select>
+
+        <template>
+          <v-data-table
+            :headers="headers"
+            :items="offices"
+            :items-per-page="10"
+            :loading="oficessLoading"
+            class="elevation-1"
+          ></v-data-table>
+        </template>
+      </v-container>
     </v-main>
   </v-app>
 </template>
@@ -57,7 +70,13 @@ export default {
     offices () { 
       console.log(this.$store.state.offices.data.length > 0 ? this.$store.state.offices.data[4]: this.$store.state.offices.data)
       return this.$store.state.offices.data; 
-    } 
+    } ,
+    cities() {
+      return this.$store.state.cities.data;
+    },
+    citiesLoading() {
+      return this.$store.state.cities.loading;
+    },
   },
 
   data: () => ({
