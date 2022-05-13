@@ -23,9 +23,19 @@ export const store = {
       //TODO: loading state
     },
     [OFFCIESS_RECEIVED]: (state, offices) => {
+      const newOfficesData = offices.reduce((prev, curr) => {
+        const office = {
+          id: curr.id,
+          name: curr.name,
+          address: curr.address.fullAddress,
+        };
+
+        prev.push(office);
+        return prev;
+      }, []);
       state.offices = {
         ...state.offices,
-        data: offices,
+        data: newOfficesData,
         loading: false,
       };
     },

@@ -33,7 +33,8 @@
         <v-data-table
           :headers="headers"
           :items="offices"
-          :items-per-page="5"
+          :items-per-page="10"
+          :loading="oficessLoading"
           class="elevation-1"
         ></v-data-table>
       </template>
@@ -50,7 +51,11 @@ export default {
   },
 
   computed: { 
+    oficessLoading() {
+      return this.$store.state.offices.loading;
+    },
     offices () { 
+      console.log(this.$store.state.offices.data.length > 0 ? this.$store.state.offices.data[4]: this.$store.state.offices.data)
       return this.$store.state.offices.data; 
     } 
   },
@@ -63,6 +68,11 @@ export default {
         sortable: true, 
         value: 'name', 
       },
+      {
+        text: "Адрес",
+        sortable: false,
+        value: "address"
+      }
 
     ]
   }),

@@ -9,7 +9,7 @@ export default {
 
     const result = await axios.post(url, {
       countryCode: "BGR",
-      cityID: "47",
+      //   cityID: "2",
     });
 
     return result;
